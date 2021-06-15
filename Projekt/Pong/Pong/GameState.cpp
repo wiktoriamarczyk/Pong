@@ -9,12 +9,14 @@ void InGameState::Update(float DeltaTime)
 
 void InGameState::Render(SDL_Renderer* pRenderer)
 {
-    // wybor koloru, czyscimy ekran na czarno
+    // wybor koloru na czarny
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
-    // czyscimy ekran, by nie zostaly zadne pozostalosci z poprzedniej klatki
+    // wypelniamy caly ekran wybranym wczesniej kolorem, (czyscimy) aby nie zostaly zadne pozostalosci z poprzedniej klatki
     SDL_RenderClear(pRenderer);
 
-    // rysujemy linie oddzielajaca pola graczy, rysujac prostokaty wzdluz wysokosci ekranu
+    // zmieniamy kolor na bialy
+    SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
+    // i rysujemy linie oddzielajaca pola graczy, rysujac prostokaty wczesniej wybranym kolorem wzdluz wysokosci ekranu
     for (int i = 0; i < SCREEN_HEIGHT; i += 20)
     {
         SDL_Rect Rect;
