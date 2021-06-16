@@ -1,13 +1,38 @@
 #include "GameState.h"
 #include "Common.h"
 
+
+GameState::GameState(eStateID StateID) : m_StateID(StateID) {}
+
+
+eStateID GameState::GetStateID()const
+{
+    return m_StateID;
+}
+
+
+// ----------UPDATE METHODS----------
+
+void MainMenuState::Update (float DeltaTime)
+{
+
+}
+
 void InGameState::Update(float DeltaTime)
 {
 
 }
 
+// ----------RENDER METHODS----------
 
-void InGameState::Render(SDL_Renderer* pRenderer)
+void MainMenuState::Render (SDL_Renderer* pRenderer)
+{
+    SDL_SetRenderDrawColor(pRenderer, 0, 255, 255, 255);
+    SDL_RenderClear(pRenderer);
+    SDL_RenderPresent(pRenderer);
+}
+
+void InGameState::Render (SDL_Renderer* pRenderer)
 {
     // wybor koloru na czarny
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
