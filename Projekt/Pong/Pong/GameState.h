@@ -6,14 +6,18 @@ class Engine;
 
 class GameState
 {  
-private:
-    eStateID m_StateID = eStateID::UNKNOWN;
-
+    const eStateID m_StateID = eStateID::UNKNOWN;
+protected:
+    eStateID m_NextStateID = eStateID::UNKNOWN;
 public:
     GameState (eStateID StateID);
+    
     virtual void Update (float DeltaTime)=0;
     virtual void Render (SDL_Renderer* pRenderer)=0;
+
     eStateID GetStateID()const;
+    eStateID GetNextStateID()const;
+    void OnEnter();
 };
 
 
@@ -37,6 +41,8 @@ public:
 
 class SettingsState : public GameState
 {
+public:
+    SettingsState() : GameState (eStateID::SETTINGS) {};
     void Update(float DeltaTime);
     void Render(SDL_Renderer* pRenderer);
 };
@@ -45,6 +51,7 @@ class SettingsState : public GameState
 class VictoryState : public GameState
 {
 public:
+    VictoryState() : GameState(eStateID::VICTORY) {};
     void Update(float DeltaTime);
     void Render(SDL_Renderer* pRenderer);
 };

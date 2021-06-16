@@ -3,14 +3,14 @@
 #include "Engine.h"
 
 
-
-
 int main()
 {
 
-    // inicjalizacja okna
-  
     Engine MyEngine;
+    if (MyEngine.Initialize() == false)
+    {
+        return 1;
+    }
     MyEngine.Loop();
 
     // posprzatanie zasobow

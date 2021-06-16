@@ -2,6 +2,7 @@
 #include<iostream>
 #include<vector>
 #include<memory>
+#include<fstream>
 #include<SDL_Mixer.h>
 #include<SDL.h>
 
@@ -41,3 +42,10 @@ enum class eStateID
     SETTINGS = 4,
 
 };
+
+
+// TRZEBA PRZENIESC DO COMMON -
+// pomocnicza funkcja sprawdzajaca czy klawisz jest nacisniety
+bool SDL_IsKeyPressed(SDL_Scancode Code);
+
+
