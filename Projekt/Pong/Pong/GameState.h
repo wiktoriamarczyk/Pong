@@ -1,5 +1,6 @@
 #pragma once
 #include "Common.h"
+#include "GameObject.h"
 
 
 class Engine;
@@ -23,7 +24,7 @@ public:
     // funkcja zwracajaca ID kolejnego stanu, na ktory chcemy przejsc z aktualnego
     eStateID GetNextStateID()const;
     // funkcja ustawiajaca na starcie aktualny stan jako ten nastepny, by uniknac zapetlajacego sie przeskakiwania miedzy stanami
-    void OnEnter();
+    virtual void OnEnter();
 };
 
 
@@ -38,10 +39,13 @@ public:
 
 class InGameState : public GameState
 {
+    vector<unique_ptr<GameObject>> m_AllGameObjects;
 public:
-    InGameState() : GameState (eStateID::INGAME) {};
+    InGameState();
     void Update(float DeltaTime);
     void Render(SDL_Renderer* pRenderer);
+    void OnEnter()override;
+    void CreateObject();
 };
 
 

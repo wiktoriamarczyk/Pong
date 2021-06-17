@@ -54,6 +54,10 @@ bool Engine::Initialize()
         printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
         return false;
     }
+
+    //Paddle LeftPaddle;
+    //LeftPaddle.InitializePaddle(5, SCREEN_HEIGHT/2, SDL_SCANCODE_W, SDL_SCANCODE_S);
+
     return true;
 }
 
@@ -85,6 +89,7 @@ void Engine::Loop()
         m_pCurrentState->Update(1.0f / 60.0f);
         m_pCurrentState->Render(pRenderer);
 
+        // domyslnie nastepny stan jest UNKNOWN, gdy nie chcemy przechodzic do nowego stanu, zatem jesli jest tam cos innego, tzn. ze bylo zazadanie zmiany stanu
         if (m_pCurrentState->GetNextStateID() != eStateID::UNKNOWN)
         {
             ChangeState(m_pCurrentState->GetNextStateID());
