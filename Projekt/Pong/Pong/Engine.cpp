@@ -61,6 +61,12 @@ void Engine::Loop()
 {
 
     // ----------GLOWNA PETLA GRY----------
+    // dla kazdej klatki bedziemy:
+    // 1) sprawdzac 'eventy' wysylane przez system operacyjny (zamkniecie aplikacji przez uzytkownika)
+    // 2) update logiki gry
+    // 3) renderowanie gry
+    // 4) czekanie 1/60 sekundy na nastepmna klatke
+
     while (true)
     {
         // oczekiwanie na 'event' -> nas interesuje tylko ewentualne wyjscie z aplikacji
@@ -75,6 +81,7 @@ void Engine::Loop()
         // odswiezanie 60 klatek na sekunde (SDL_Delay w milisekundach)
         SDL_Delay(1000 / 60);
 
+        // renderowanie naszej gry oraz update'owanie jej logiki
         m_pCurrentState->Update(1.0f / 60.0f);
         m_pCurrentState->Render(pRenderer);
 

@@ -14,9 +14,6 @@
 using std::vector;
 using std::unique_ptr;
 using std::make_unique;
-using std::cout;
-using std::cin;
-using std::endl;
 
 
 enum : int
@@ -43,8 +40,6 @@ enum class eStateID
 
 };
 
-
-// TRZEBA PRZENIESC DO COMMON -
 // pomocnicza funkcja sprawdzajaca czy klawisz jest nacisniety
 bool SDL_IsKeyPressed(SDL_Scancode Code);
 

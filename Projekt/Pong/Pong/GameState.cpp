@@ -72,7 +72,7 @@ void VictoryState::Update(float DeltaTime)
 
 void MainMenuState::Render (SDL_Renderer* pRenderer)
 {
-    SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
     SDL_RenderClear(pRenderer);
     SDL_RenderPresent(pRenderer);
 }
