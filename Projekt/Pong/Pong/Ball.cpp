@@ -42,6 +42,7 @@ void Ball::Render (SDL_Renderer* pRenderer)
     SDL_RenderFillRect(pRenderer, &BallDrawRect);
 }
 
+
 void Ball::Update (float DeltaTime)
 {
     // m_BallSpeed -> pixels / second, ale kazda klatka nie bierze jednej sekundy, bierze 'DeltaTime' sekund (1/60 sekundy)
@@ -57,16 +58,65 @@ void Ball::Update (float DeltaTime)
     // ta nowa pozycja staje sie nasza aktualna pozycja
     m_BallCenterPos = NewCenterPosition;
 
-    // jesli pilka dotknie sufitu, odbije sie od niego (zmieniajac kierunek wzgledem OY na przeciwny), to samo kiedy dotknie podlogi
+
+    // ----------KOLIZJA Z PODLOGA I SUFITEM (GORNA I DOLNA KRAWEDZIA OKIENKA)----------
+
+    // jesli pilka dotknie podlogi, odbije sie od niej (zmieniajac kierunek wzgledem OY na przeciwny)
     if (m_BallCenterPos.y > SCREEN_HEIGHT)
     {
         m_BallDirection.y = -m_BallDirection.y;
     }
-
-    /*if (m_BallCenterPos.y <= 0)
+    // to samo sie stanie, kiedy dotknie sufitu
+    if (m_BallCenterPos.y <= 0)
     {
         m_BallDirection.y = -m_BallDirection.y;
-    }*/
+    }
 
+    // ----------KOLIZJA Z PALETKAMI----------
+
+    // kolizja z prawa paletka
+    // jesli pilka znajduje sie w obszarze wystepowania prawej paletki, sprawdz za  pomoca funkcji CrossedPaddle czy doszlo do kolizji
+    if (m_BallCenterPos.x >= (SCREEN_WIDTH - 5))
+    {
+        if (m_RightPaddle->CrossedPaddle(m_BallCenterPos))
+        {
+            // jesli doszlo do kolizji, niech zachowa swoja predkosc oraz odbije sie od paletki (zminiajac swoj kierunek wzgledem OX) 
+            m_BallSpeed = BALL_SPEED;
+            m_BallDirection.x = -m_BallDirection.x;
+        }
+        // w innym wypadku prawa paletka pilki nie odbila, zatem pilka wypada poza ekran 
+        // niech tworzy sie na nowo na srodku ekranu lecac w losowym kierunku w strone gracza przeciwnego z nieco zmniejszona predkoscia na samym poczatku
+        // gracz pierwszy zyskuje punkt
+        else
+        {
+            m_BallSpeed = BALL_SPEED - 150;
+            m_BallCenterPos.x = SCREEN_WIDTH / 2;
+            m_BallCenterPos.y = SCREEN_HEIGHT / 2;
+            srand(time(NULL));
+            vec2 Direction((rand() % 5) - 5, (rand() % 5) - 5);
+            m_BallDirection = Direction.GetNormalized();
+            m_Points1++;
+        }
+    }
+
+    // kolizja z lewa paletka -> analogicznie
+    if (m_BallCenterPos.x <= 5)
+    {
+        if (m_LeftPaddle->CrossedPaddle(m_BallCenterPos))
+        {
+            m_BallSpeed = BALL_SPEED;
+            m_BallDirection.x = -m_BallDirection.x;
+        }
+        else
+        {
+            m_BallSpeed = BALL_SPEED - 150;
+            m_BallCenterPos.x = SCREEN_WIDTH / 2;
+            m_BallCenterPos.y = SCREEN_HEIGHT / 2;
+            srand(time(NULL));
+            vec2 Direction((rand() % 5) + 1, (rand() % 5) + 1);
+            m_BallDirection = Direction.GetNormalized();
+            m_Points2++;
+        }
+    }
 }
 
