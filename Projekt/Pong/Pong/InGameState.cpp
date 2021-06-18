@@ -1,6 +1,7 @@
 #include "InGameState.h"
 #include "Common.h"
 #include "Paddle.h"
+#include "Ball.h"
 
 
 InGameState::InGameState() : GameState(eStateID::INGAME)
@@ -11,17 +12,27 @@ InGameState::InGameState() : GameState(eStateID::INGAME)
 
 void InGameState::CreateObject()
 {
+    int PointsPlOne = 0;
+    int PointsPlTwo = 0;
+    // wyczysc vektor (przy wyjsciu z gry do menu i ponownym wejsciu, gra rozpocznie siê na nowo)
     m_AllGameObjects.clear();
 
-    unique_ptr<Paddle> LeftPaddle = make_unique<Paddle>();
+    // stworz wskazniki na paletki
+    shared_ptr<Paddle> LeftPaddle = make_shared<Paddle>();
     LeftPaddle->InitializePaddle(5, SCREEN_HEIGHT / 2, SDL_SCANCODE_W, SDL_SCANCODE_S);
 
-    unique_ptr<Paddle> RightPaddle = make_unique<Paddle>();
+    shared_ptr<Paddle> RightPaddle = make_shared<Paddle>();
     RightPaddle->InitializePaddle(SCREEN_WIDTH - 5, SCREEN_HEIGHT / 2, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
 
+    // stworz wskaznik na pilke
+    shared_ptr<Ball> MyBall = make_shared<Ball>(LeftPaddle, RightPaddle, PointsPlOne, PointsPlTwo);
+    MyBall->InitializeBall(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
+
+    // wrzuc wszystkie wskazniki na obiekty do wektora
     m_AllGameObjects.push_back(std::move(LeftPaddle));
     m_AllGameObjects.push_back(std::move(RightPaddle));
+    m_AllGameObjects.push_back(std::move(MyBall));
 }
 
 

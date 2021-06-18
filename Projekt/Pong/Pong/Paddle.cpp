@@ -3,8 +3,8 @@
 
 void Paddle::InitializePaddle (int PaddleCenterPositionX, int PaddleCenterPositionY, SDL_Scancode KeyToMoveUp, SDL_Scancode KeyToMoveDown)
 {
-    m_PaddleCenterPos.x = float (PaddleCenterPositionX);
-    m_PaddleCenterPos.y = float (PaddleCenterPositionY);
+    m_PaddleCenterPos.x = float(PaddleCenterPositionX);
+    m_PaddleCenterPos.y = float(PaddleCenterPositionY);
 
     m_KeyToUp = KeyToMoveUp;
     m_KeyToDown = KeyToMoveDown;
@@ -68,7 +68,7 @@ void Paddle::Update (float DeltaTime)
 
     vec2 PaddleBottomRightCorner = m_PaddleCenterPos + m_PaddleSize / 2;
     // jesli gracz wciska klawisz strzalki w dol, paletka zostanie przesunieta w dol o FrameDistance, jesli napotka kraniec okienka, nie przesunie sie dalej
-    if (SDL_IsKeyPressed (m_KeyToDown) && PaddleBottomRightCorner.y < SCREEN_HEIGHT)
+    if (SDL_IsKeyPressed (m_KeyToDown) && PaddleBottomRightCorner.y <= SCREEN_HEIGHT)
     {
         m_PaddleCenterPos.y += FrameDistance;
     }

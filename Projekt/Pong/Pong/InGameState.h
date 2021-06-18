@@ -4,7 +4,7 @@
 
 class InGameState : public GameState
 {
-    vector<unique_ptr<GameObject>> m_AllGameObjects;
+    vector<shared_ptr<GameObject>> m_AllGameObjects;
 
 public:
     InGameState();

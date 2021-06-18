@@ -13,6 +13,8 @@
 
 using std::vector;
 using std::unique_ptr;
+using std::shared_ptr;
+using std::make_shared;
 using std::make_unique;
 
 
