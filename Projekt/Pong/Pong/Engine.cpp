@@ -3,11 +3,16 @@
 #include "MainMenuState.h"
 #include "SettingsState.h"
 #include "VictoryState.h"
+#include "Font.h"
 
 
 Engine::Engine()
 {
-    m_AllStates.push_back (make_unique<InGameState>());
+    // stworzenie wskaznika na obiekt typu Font i wskazanie pliku tekstowego do odczytu 
+    shared_ptr<Font> MyFont = make_shared<Font>();
+    MyFont->LoadFont("../Data/FontData.txt"); 
+
+    m_AllStates.push_back (make_unique<InGameState>(MyFont));
     m_AllStates.push_back (make_unique<MainMenuState>());
     m_AllStates.push_back(make_unique<SettingsState>());
     m_AllStates.push_back(make_unique<VictoryState>());
@@ -58,9 +63,6 @@ bool Engine::Initialize()
         printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
         return false;
     }
-
-    //Paddle LeftPaddle;
-    //LeftPaddle.InitializePaddle(5, SCREEN_HEIGHT/2, SDL_SCANCODE_W, SDL_SCANCODE_S);
 
     return true;
 }

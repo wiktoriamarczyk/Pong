@@ -17,7 +17,6 @@ class Ball : public GameObject
     int m_Points2 = 0;
 
 public:
-    Ball()=default;
     Ball(shared_ptr<Paddle> PaddleL, shared_ptr<Paddle> PaddleR, int& PointsPlOne, int& PointsPlTwo);
     void InitializeBall (int BallCenterPositionX, int BallCenterPositionY);
     void Update (float DeltaTime)override;

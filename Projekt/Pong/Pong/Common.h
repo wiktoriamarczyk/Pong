@@ -2,7 +2,9 @@
 #include<iostream>
 #include<vector>
 #include<memory>
+#include<string>
 #include<fstream>
+#include<cstdlib>
 #include<ctime>
 #include<SDL_Mixer.h>
 #include<SDL.h>
@@ -13,6 +15,8 @@
 #endif
 
 using std::vector;
+using std::string;
+using std::fstream;
 using std::unique_ptr;
 using std::shared_ptr;
 using std::make_shared;

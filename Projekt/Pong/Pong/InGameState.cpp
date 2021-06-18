@@ -4,7 +4,7 @@
 #include "Ball.h"
 
 
-InGameState::InGameState() : GameState(eStateID::INGAME)
+InGameState::InGameState(shared_ptr<Font> MyFont) : GameState(eStateID::INGAME), m_Font(MyFont)
 {
     CreateObject();
 }
@@ -12,9 +12,9 @@ InGameState::InGameState() : GameState(eStateID::INGAME)
 
 void InGameState::CreateObject()
 {
+    // wyzeruj punkty i wyczysc vektor (przy wyjsciu z gry do menu i ponownym wejsciu, gra rozpocznie siê na nowo)
     int PointsPlOne = 0;
     int PointsPlTwo = 0;
-    // wyczysc vektor (przy wyjsciu z gry do menu i ponownym wejsciu, gra rozpocznie siê na nowo)
     m_AllGameObjects.clear();
 
     // stworz wskazniki na paletki
@@ -27,7 +27,6 @@ void InGameState::CreateObject()
     // stworz wskaznik na pilke
     shared_ptr<Ball> MyBall = make_shared<Ball>(LeftPaddle, RightPaddle, PointsPlOne, PointsPlTwo);
     MyBall->InitializeBall(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-
 
     // wrzuc wszystkie wskazniki na obiekty do wektora
     m_AllGameObjects.push_back(std::move(LeftPaddle));
@@ -81,6 +80,10 @@ void InGameState::Render(SDL_Renderer* pRenderer)
     {
         m_AllGameObjects[i]->Render(pRenderer);
     }
+
+
+    m_Font->DrawText(pRenderer, 5, 200, 20, "COS");
+
 
     // wyswietlamy wszystko z aktualnej klatki
     SDL_RenderPresent(pRenderer);
