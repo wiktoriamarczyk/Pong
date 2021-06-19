@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "vec2.h"
 #include "Paddle.h"
+#include "Font.h"
 
 
 class Ball : public GameObject
@@ -15,9 +16,14 @@ class Ball : public GameObject
     shared_ptr<Paddle> m_RightPaddle;
     int m_Points1 = 0;
     int m_Points2 = 0;
+    shared_ptr<Font> m_Font;
+
+protected:
+
 
 public:
-    Ball(shared_ptr<Paddle> PaddleL, shared_ptr<Paddle> PaddleR, int& PointsPlOne, int& PointsPlTwo);
+    Ball(shared_ptr<Paddle> PaddleL, shared_ptr<Paddle> PaddleR, int& PointsPlOne, int& PointsPlTwo, shared_ptr<Font> MyFont);
+
     void InitializeBall (int BallCenterPositionX, int BallCenterPositionY);
     void Update (float DeltaTime)override;
     void Render (SDL_Renderer* pRenderer)override;

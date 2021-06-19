@@ -148,6 +148,9 @@ void DrawLine (SDL_Renderer* pRenderer, int PixelSize, int PosX, int PosY, const
 // funkcja pomocnicza rysujaca caly symbol, dla kazdego elementu z wektora Lines wywola funkcje DrawLine
 void DrawLines (SDL_Renderer* pRenderer, int PixelSize, int PosX, int PosY, const vector<string>& Lines)
 {
+    // ustawiamy kolor czcionki na bialy
+    SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
+
     for (int i = 0; i < Lines.size(); ++i)
     {
         // przesuwamy sie wzgledem OY, by nie narysowac wszystkiego w jednej linii

@@ -1,10 +1,13 @@
 #include "Ball.h"
 
 
-Ball::Ball(shared_ptr<Paddle> PaddleL, shared_ptr<Paddle> PaddleR, int& PointsPlOne, int& PointsPlTwo)
+Ball::Ball(shared_ptr<Paddle> PaddleL, shared_ptr<Paddle> PaddleR, int& PointsPlOne, int& PointsPlTwo, shared_ptr<Font> MyFont)
 {
+    m_Font = MyFont;
+
     m_LeftPaddle = PaddleL;
     m_RightPaddle = PaddleR;
+
     m_Points1 = PointsPlOne;
     m_Points2 = PointsPlTwo;
 }
@@ -40,6 +43,10 @@ void Ball::Render (SDL_Renderer* pRenderer)
     SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
     // rysujemy pilke
     SDL_RenderFillRect(pRenderer, &BallDrawRect);
+
+    // wyswietlamy punktacje na ekranie
+    m_Font->DrawText(pRenderer, 5, 200, 20, ToString(m_Points1).c_str());
+    m_Font->DrawText(pRenderer, 5, 550, 20, ToString(m_Points2).c_str());
 }
 
 
@@ -119,4 +126,3 @@ void Ball::Update (float DeltaTime)
         }
     }
 }
-

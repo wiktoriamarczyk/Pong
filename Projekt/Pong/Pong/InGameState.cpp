@@ -4,8 +4,9 @@
 #include "Ball.h"
 
 
-InGameState::InGameState(shared_ptr<Font> MyFont) : GameState(eStateID::INGAME), m_Font(MyFont)
+InGameState::InGameState(shared_ptr<Font> MyFont) : GameState(eStateID::INGAME)
 {
+    m_Font = MyFont;
     CreateObject();
 }
 
@@ -25,7 +26,7 @@ void InGameState::CreateObject()
     RightPaddle->InitializePaddle(SCREEN_WIDTH - 5, SCREEN_HEIGHT / 2, SDL_SCANCODE_UP, SDL_SCANCODE_DOWN);
 
     // stworz wskaznik na pilke
-    shared_ptr<Ball> MyBall = make_shared<Ball>(LeftPaddle, RightPaddle, PointsPlOne, PointsPlTwo);
+    shared_ptr<Ball> MyBall = make_shared<Ball>(LeftPaddle, RightPaddle, PointsPlOne, PointsPlTwo, m_Font);
     MyBall->InitializeBall(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
     // wrzuc wszystkie wskazniki na obiekty do wektora
@@ -80,10 +81,6 @@ void InGameState::Render(SDL_Renderer* pRenderer)
     {
         m_AllGameObjects[i]->Render(pRenderer);
     }
-
-
-    m_Font->DrawText(pRenderer, 5, 200, 20, "COS");
-
 
     // wyswietlamy wszystko z aktualnej klatki
     SDL_RenderPresent(pRenderer);

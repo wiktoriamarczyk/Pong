@@ -1,7 +1,7 @@
 #pragma once
 #include "Common.h"
 #include "GameObject.h"
-
+#include "Font.h"
 
 class Engine;
 
@@ -12,9 +12,10 @@ class GameState
 
 protected:
     eStateID m_NextStateID = eStateID::UNKNOWN;
+    shared_ptr<Font> m_Font;
 
 public:
-    GameState (eStateID StateID);
+    GameState(eStateID StateID);
     
     virtual void Update (float DeltaTime)=0;
     virtual void Render (SDL_Renderer* pRenderer)=0;

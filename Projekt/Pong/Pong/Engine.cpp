@@ -10,12 +10,12 @@ Engine::Engine()
 {
     // stworzenie wskaznika na obiekt typu Font i wskazanie pliku tekstowego do odczytu 
     shared_ptr<Font> MyFont = make_shared<Font>();
-    MyFont->LoadFont("../Data/FontData.txt"); 
+    MyFont->LoadFont("../Data/FontData.txt");
 
     m_AllStates.push_back (make_unique<InGameState>(MyFont));
-    m_AllStates.push_back (make_unique<MainMenuState>());
-    m_AllStates.push_back(make_unique<SettingsState>());
-    m_AllStates.push_back(make_unique<VictoryState>());
+    m_AllStates.push_back (make_unique<MainMenuState>(MyFont));
+    m_AllStates.push_back(make_unique<SettingsState>(MyFont));
+    m_AllStates.push_back(make_unique<VictoryState>(MyFont));
 
     ChangeState (eStateID::MAINMENU);
 }
