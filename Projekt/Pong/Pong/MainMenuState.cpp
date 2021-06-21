@@ -40,5 +40,4 @@ void MainMenuState::Render(SDL_Renderer* pRenderer)
     m_Font->DrawText(pRenderer, 1, 300, 450, "AUTHOR: WIKTORIA MARCZYK");
 
     SDL_RenderPresent(pRenderer);
-
 }

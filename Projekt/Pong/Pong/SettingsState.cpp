@@ -13,6 +13,12 @@ void SettingsState::Update(float DeltaTime)
     {
         m_NextStateID = eStateID::MAINMENU;
     }
+    
+        if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
+        {
+            //SDL_SetWindowFullscreen (m_pWindow, SDL_WINDOW_FULLSCREE);
+        }
+    
 }
 
 

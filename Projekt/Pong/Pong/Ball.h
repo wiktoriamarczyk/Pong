@@ -14,12 +14,9 @@ class Ball : public GameObject
 
     shared_ptr<Paddle> m_LeftPaddle;
     shared_ptr<Paddle> m_RightPaddle;
-    int m_Points1 = 0;
-    int m_Points2 = 0;
+    static int m_Points1;
+    static int m_Points2;
     shared_ptr<Font> m_Font;
-
-protected:
-
 
 public:
     Ball(shared_ptr<Paddle> PaddleL, shared_ptr<Paddle> PaddleR, int& PointsPlOne, int& PointsPlTwo, shared_ptr<Font> MyFont);
@@ -27,5 +24,10 @@ public:
     void InitializeBall (int BallCenterPositionX, int BallCenterPositionY);
     void Update (float DeltaTime)override;
     void Render (SDL_Renderer* pRenderer)override;
+
+    // funkcja zwracajaca true, jesli ktorys z graczy osiagnal wynik determinujacy o jego zwyciestwie
+    static bool Victory();
+    // funkcja zwracajaca true, jesli zwyciezca jest gracz 1, false jesli gracz 2
+    static bool GetWinner();
 };
 

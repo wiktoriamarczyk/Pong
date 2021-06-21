@@ -1,6 +1,10 @@
 #include "Ball.h"
 
 
+int Ball:: m_Points1 = 0;
+int Ball::m_Points2 = 0;
+
+
 Ball::Ball(shared_ptr<Paddle> PaddleL, shared_ptr<Paddle> PaddleR, int& PointsPlOne, int& PointsPlTwo, shared_ptr<Font> MyFont)
 {
     m_Font = MyFont;
@@ -125,4 +129,24 @@ void Ball::Update (float DeltaTime)
             m_Points2++;
         }
     }
+}
+
+
+bool Ball::Victory()
+{
+    if (m_Points1 >= 1 || m_Points2 >= 1)
+    {
+        return true;
+    }
+    return false;
+}
+
+
+bool Ball::GetWinner()
+{
+    if (m_Points1 >= 1)
+    {
+        return true;
+    }
+    else return false;
 }

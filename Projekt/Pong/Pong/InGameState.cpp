@@ -50,9 +50,17 @@ void InGameState::Update(float DeltaTime)
     {
         m_NextStateID = eStateID::MAINMENU;
     }
+
+    // wywolanie update na kazdym obiekcie znajdujacym sie w stanie InGame
     for (int i = 0; i < m_AllGameObjects.size(); ++i)
     {
         m_AllGameObjects[i]->Update(DeltaTime);
+    }
+
+    // jesli ktorys z graczy osiagnal liczbe punktow determinujaca o zwyciestwie, zmien stan na Victory
+    if (Ball::Victory())
+    {
+        m_NextStateID = eStateID::VICTORY;
     }
 }
 
