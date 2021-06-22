@@ -52,6 +52,10 @@ Engine::Engine()
 Engine::~Engine()
 {
     pSingleton = nullptr;
+    SDL_DestroyRenderer(pRenderer);
+    SDL_DestroyWindow(pWindow);
+    SDL_Quit();
+    SDL_CloseAudio();
 }
 
 

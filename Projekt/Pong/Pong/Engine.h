@@ -21,6 +21,7 @@ class Engine
 public:
     Engine();
     ~Engine();
+
     static Engine* GetSingleton();
     // funkcja odpowiadajaca za zmiane stanu (m_pCurrentState ma wskazywac teraz na jakis inny stan)
     void ChangeState (eStateID StateID);
