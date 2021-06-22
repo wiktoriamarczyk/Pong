@@ -58,7 +58,7 @@ void Ball::Render (SDL_Renderer* pRenderer)
 void Ball::Update (float DeltaTime)
 {
     // m_BallSpeed -> pixels / second, ale kazda klatka nie bierze jednej sekundy, bierze 'DeltaTime' sekund (1/60 sekundy)
-   // by obliczyc przebyty dystans pilki w tej klatce nalezy pomnozyc jej predkosc przez dlugosc trwania klatki
+    // by obliczyc przebyty dystans pilki w tej klatce nalezy pomnozyc jej predkosc przez dlugosc trwania klatki
     float FrameDistance = m_BallSpeed * DeltaTime; 
 
     // FrameDistance to dystans przebyty na plaszczyznie jednowymiarowej, jednak nasza pilka porusza sie w kierunku m_BallDirection,

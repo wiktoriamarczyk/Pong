@@ -7,6 +7,7 @@
 InGameState::InGameState(shared_ptr<Font> MyFont) : GameState(eStateID::INGAME)
 {
     m_Font = MyFont;
+    // przy kazdym tworzeniu InGameState wywoluj tworzenie obiektow gry
     CreateObject();
 }
 
@@ -38,7 +39,9 @@ void InGameState::CreateObject()
 
 void InGameState::OnEnter()
 {
+    // przy kazdym wejsciu do gry, ustaw domyslnie nastepny stan na nieznany
     GameState::OnEnter();
+    // oraz stworz wszystkie obiekty gry na nowo
     CreateObject();
 }
 

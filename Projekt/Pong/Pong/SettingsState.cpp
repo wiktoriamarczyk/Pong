@@ -15,11 +15,14 @@ void SettingsState::Update(float DeltaTime)
         m_NextStateID = eStateID::MAINMENU;
     }
     
+    // sprawdzenie czy gracz naciska klawisz w dol
     if (SDL_IsKeyPressed(SDL_SCANCODE_DOWN))
     {
+        // jesli wcisnal enter, wlacz lub wylacz dzwiek
         if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
         {
             SDL_Delay(100);
+
             if (Engine::GetSingleton()->IsSoundOn())
             {
                 Engine::GetSingleton()->TurnOnOffSound(false);
@@ -30,6 +33,7 @@ void SettingsState::Update(float DeltaTime)
             }
         }
     }
+    // jesli gracz wcisnal tylko klawisz enter, zmien tryb wyswietlania na fullscreen lub okienkowy
     else if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
     {
         if (Engine::GetSingleton()->IsFullscreen())
@@ -50,6 +54,7 @@ void SettingsState::Render(SDL_Renderer* pRenderer)
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
     SDL_RenderClear(pRenderer);
 
+    // wyswietlamy czcionke na ekranie
     m_Font->DrawText(pRenderer, 8, 160, 80, "SETTINGS");
     m_Font->DrawText(pRenderer, 4, 100, 250, "->FULLSCREEN");
 
@@ -64,5 +69,6 @@ void SettingsState::Render(SDL_Renderer* pRenderer)
    
     m_Font->DrawText(pRenderer, 1, 300, 450, "CLICK ESC TO RETURN TO MENU");
 
+    // wyswietlamy wszystko na ekranie
     SDL_RenderPresent(pRenderer);
 }

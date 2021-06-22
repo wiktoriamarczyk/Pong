@@ -13,24 +13,6 @@ Engine* Engine::GetSingleton()
     return pSingleton;
 }
 
-bool Engine::IsFullscreen()const
-{
-    return m_IsFullscreen;
-}
-
-void Engine::SetFullscreen(bool IsFullscreen)
-{
-    m_IsFullscreen = IsFullscreen;
-
-    if (IsFullscreen)
-    {
-        SDL_SetWindowFullscreen(pWindow, SDL_WINDOW_FULLSCREEN);
-    }
-    else
-    {
-        SDL_SetWindowFullscreen(pWindow, 0);
-    }
-}
 
 Engine::Engine()
 {
@@ -40,14 +22,15 @@ Engine::Engine()
     shared_ptr<Font> MyFont = make_shared<Font>();
     MyFont->LoadFont("../Data/FontData.txt");
 
+    // wraz z utworzeniem obiektu klasy Engine, tworzymy wektor wszystkich stanow
     m_AllStates.push_back (make_unique<InGameState>(MyFont));
     m_AllStates.push_back (make_unique<MainMenuState>(MyFont));
     m_AllStates.push_back(make_unique<SettingsState>(MyFont));
     m_AllStates.push_back(make_unique<VictoryState>(MyFont));
 
+    // domyslnie pierwszym stanem bedzie menu naszej gry
     ChangeState (eStateID::MAINMENU);
 }
-
 
 Engine::~Engine()
 {
@@ -86,6 +69,7 @@ bool Engine::Initialize()
         return false;
     }
 
+    // funkcja odpowiedzialna za zmniejszenie glosnosci dzwieku
     Mix_Volume(-1,16);
 
     // utworzenie okna naszej gry
@@ -99,6 +83,7 @@ bool Engine::Initialize()
     // utworzenie renderera, by moc rysowac rzeczy na ekranie
     //                            przypisanie do okienka, indeks karty graficznej '-1' -> pierwsza jaka znajdzie w systemie
     pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
+    // sprawdzenie renderera
     if (pRenderer == nullptr)
     {
         printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
@@ -150,6 +135,30 @@ void Engine::Loop()
     }
 }
 
+void Engine::ExitGame()
+{
+    m_IsRunning = false;
+}
+
+bool Engine::IsFullscreen()const
+{
+    return m_IsFullscreen;
+}
+
+void Engine::SetFullscreen(bool IsFullscreen)
+{
+    m_IsFullscreen = IsFullscreen;
+
+    if (IsFullscreen)
+    {
+        SDL_SetWindowFullscreen(pWindow, SDL_WINDOW_FULLSCREEN);
+    }
+    else
+    {
+        SDL_SetWindowFullscreen(pWindow, 0);
+    }
+}
+
 
 void Engine::PlayWallSound()const
 {
@@ -166,6 +175,10 @@ void Engine::PlayErrorSound()const
     m_error_sound.Play();
 }
 
+bool Engine::IsSoundOn() const
+{
+    return m_IsSoundOn;
+}
 
 void Engine::TurnOnOffSound(bool IsSoundOn)
 {
@@ -179,15 +192,4 @@ void Engine::TurnOnOffSound(bool IsSoundOn)
         m_IsSoundOn = false;
         Mix_Volume(-1, 0);
     }
-}
-
-bool Engine::IsSoundOn() const
-{
-    return m_IsSoundOn;
-}
-
-
-void Engine::ExitGame()
-{
-    m_IsRunning = false;
 }

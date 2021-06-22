@@ -21,7 +21,6 @@ vec2 Paddle::ReturnPos()const
 }
 
 
-
 void Paddle::Render(SDL_Renderer* pRenderer)
 {
     /*
@@ -59,8 +58,8 @@ void Paddle::Update (float DeltaTime)
     // by obliczyc przebyty dystans paletki w tej klatce nalezy pomnozyc jej predkosc przez dlugosc trwania klatki
     float FrameDistance = m_PaddleSpeed * DeltaTime;
 
-
     vec2 PaddleTopLeftCorner = m_PaddleCenterPos - m_PaddleSize / 2;
+
     // jesli gracz wciska klawisz strzalki w gore, paletka zostanie przesunieta do gory o FrameDistance, jesli napotka kraniec okienka, nie przesunie sie dalej
     if (SDL_IsKeyPressed (m_KeyToUp) && PaddleTopLeftCorner.y >= 0)
     {
@@ -68,6 +67,7 @@ void Paddle::Update (float DeltaTime)
     }
 
     vec2 PaddleBottomRightCorner = m_PaddleCenterPos + m_PaddleSize / 2;
+
     // jesli gracz wciska klawisz strzalki w dol, paletka zostanie przesunieta w dol o FrameDistance, jesli napotka kraniec okienka, nie przesunie sie dalej
     if (SDL_IsKeyPressed (m_KeyToDown) && PaddleBottomRightCorner.y <= SCREEN_HEIGHT)
     {

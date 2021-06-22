@@ -5,15 +5,14 @@
 
 int main()
 {
-
     Engine MyEngine;
+
     if (MyEngine.Initialize() == false)
     {
         return 1;
     }
-    MyEngine.Loop();
 
-    // posprzatanie zasobow
+    MyEngine.Loop();
 
     return 0;
 }

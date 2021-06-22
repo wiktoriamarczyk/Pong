@@ -1,7 +1,6 @@
 #include "Font.h"
 
 
-// funkcja pozwalajaca na znalezienie danego symbolu w naszym slowniku
 const CharacterData* Font::FindCharacter(char Character)const
 {
     for (int i = 0; i < m_Dictionary.size(); ++i)
@@ -12,18 +11,18 @@ const CharacterData* Font::FindCharacter(char Character)const
     return nullptr;
 }
 
-// funkcja odpowiedzialna za zaladowanie czcionki z wykorzystaniem funkcji zwracajacej slownik FillFontVector
 void Font::LoadFont(const string& FileName)
 {
     m_Dictionary = FillFontVector(FileName);
 }
 
-// funkcja odpowiedzialna za narysowanie danego tekstu na ekranie z wykorzystaniem funkcji pomocniczej DrawLines
-// funkcja ta przechodzi po kolei po kazdym znaku z zadanego ciagu Text, uzywajac funkcji FindCharacterData, aby odszukac w slowniku obiekt klasy CharacterData
-// ktory zawiera dane potrzebne do jej narysowania 
-// jesli nie ma danych potrzebnych do narysowania symbolu, pomijamy te iteracje petli, jesli jest poprawny, wolamy funkcje DrawLines
+
 void Font::DrawText(SDL_Renderer* pRenderer, int PixelSize, int PosX, int PosY, const char* Text)
 {
+    /* funkcja ta przechodzi po kolei po kazdym znaku z zadanego ciagu Text, uzywajac funkcji FindCharacterData, aby odszukac w slowniku obiekt klasy CharacterData,
+    ktory zawiera dane potrzebne do jej narysowania, jesli nie ma danych potrzebnych do narysowania symbolu, pomijamy te iteracje petli, jesli dane sa poprawne, 
+    wolamy funkcje DrawLines */
+
     const int CharacterSpacing = PixelSize * 8;
     for (int i = 0; Text[i] != 0; ++i)
     {
@@ -35,8 +34,6 @@ void Font::DrawText(SDL_Renderer* pRenderer, int PixelSize, int PosX, int PosY, 
 }
 
 
-
-// funkcja pomocnicza odpowiedzialna za przeczytanie jednej linii do OutString z pliku FileStream i zwrocenie true, jesli dlugosc OutString jest rowna oczekiwanemu rozmiarowi
 bool ReadLine(fstream& FileStream, string& OutString, int ExpectedSize)
 {
     getline(FileStream, OutString);
@@ -46,12 +43,12 @@ bool ReadLine(fstream& FileStream, string& OutString, int ExpectedSize)
 }
 
 
-// funkcja pomocnicza wczytujaca caly symbol (cyfre lub litere) przy wykorzystaniu funkcji wczytujacej linie z pliku ReadLine
-// 1) kazdy symbol rozpoczyna sie znakiem reprezentujacym symbol
-// 2) nastepnie w 7 liniach maksymalnie po 7 znakow 'X' wystepuje graficzna reprezentacja symbolu
-// 3) ostatnia linia nie zawiera zadnych znakow, stanowi przerwe pomiedzy kolejnym symbolem czcionki
 bool LoadSingleCharacter(fstream& FileStream, CharacterData& DataOut)
 {
+    // 1) kazdy symbol rozpoczyna sie znakiem reprezentujacym symbol
+    // 2) nastepnie w 7 liniach maksymalnie po 7 znakow 'X' wystepuje graficzna reprezentacja symbolu
+    // 3) ostatnia linia nie zawiera zadnych znakow, stanowi przerwe pomiedzy kolejnym symbolem czcionki
+
     string temp_char;
 
     // 1) sprobuj wczytac linie z pliku o dlugosci jednego znaku, jesli sie nie uda zwroc false
@@ -84,8 +81,6 @@ bool LoadSingleCharacter(fstream& FileStream, CharacterData& DataOut)
 }
 
 
-// funkcja odpowiedzialna za stworzenie slownika, zwroci wektor obiektow typu CharacterData, czyli dane o kazdym symbolu 
-// z wykorzystaniem funkcji wczytujacej caly symbol LoadSingleCharacter
 vector<CharacterData> FillFontVector(const string& FileName)
 {
     // wektor naszych symboli
@@ -145,9 +140,10 @@ void DrawLine (SDL_Renderer* pRenderer, int PixelSize, int PosX, int PosY, const
     }
 }
 
-// funkcja pomocnicza rysujaca caly symbol, dla kazdego elementu z wektora Lines wywola funkcje DrawLine
 void DrawLines (SDL_Renderer* pRenderer, int PixelSize, int PosX, int PosY, const vector<string>& Lines)
 {
+    // funkcja dla kazdego elementu z wektora Lines wywola funkcje DrawLine
+
     // ustawiamy kolor czcionki na bialy
     SDL_SetRenderDrawColor(pRenderer, 255, 255, 255, 255);
 
@@ -158,14 +154,11 @@ void DrawLines (SDL_Renderer* pRenderer, int PixelSize, int PosX, int PosY, cons
     }
 }
 
-// pomocnicza funkcja zamieniajaca int na string i zwracajaca go
+
 string ToString(int value)
 {
     char buffer[16];
     _itoa_s(value, buffer, 10);
-    /*
-    char* buffer2 = buffer;
-    _itoa_s(value, buffer, 16, 10);
-    */
+
     return buffer;
 }

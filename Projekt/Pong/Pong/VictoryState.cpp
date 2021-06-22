@@ -20,12 +20,14 @@ void VictoryState::Update(float DeltaTime)
 
 void VictoryState::Render(SDL_Renderer* pRenderer)
 {
+    // ustawienie koloru ekranu na czarny
     SDL_SetRenderDrawColor(pRenderer, 0, 0, 0, 255);
     SDL_RenderClear(pRenderer);
 
-
+    // wyswietlenie czcionki na ekranie
     m_Font->DrawText(pRenderer, 8, 180, 80, "VICTORY!");
 
+    // wyswietlenie informacji o zwyciezcy gry
     if (Ball::GetWinner())
     {
         m_Font->DrawText(pRenderer, 4, 200, 300, "PLAYER 1 WON");
@@ -37,5 +39,6 @@ void VictoryState::Render(SDL_Renderer* pRenderer)
 
     m_Font->DrawText(pRenderer, 1, 300, 450, "CLICK ESC TO RETURN TO MENU");
 
+    // wyswietlenie wszystkiego na ekranie
     SDL_RenderPresent(pRenderer);
 }

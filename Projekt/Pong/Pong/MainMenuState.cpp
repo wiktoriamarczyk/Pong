@@ -10,6 +10,7 @@ MainMenuState::MainMenuState(shared_ptr<Font> MyFont) : GameState(eStateID::MAIN
 
 void MainMenuState::Update(float DeltaTime)
 {
+    // jesli gracz wciska esc, wywolaj zamkniecie programu
     if (SDL_IsKeyPressed(SDL_SCANCODE_ESCAPE))
     {
         Engine::GetSingleton()->ExitGame();
@@ -44,5 +45,6 @@ void MainMenuState::Render(SDL_Renderer* pRenderer)
     m_Font->DrawText(pRenderer, 5, 180, 350, "->EXIT");
     m_Font->DrawText(pRenderer, 1, 300, 450, "AUTHOR: WIKTORIA MARCZYK");
 
+    // wyswietl wszystko na ekranie
     SDL_RenderPresent(pRenderer);
 }

@@ -7,6 +7,6 @@ class MainMenuState : public GameState
 {
 public:
     MainMenuState(shared_ptr<Font> MyFont);
-    void Update(float DeltaTime);
-    void Render(SDL_Renderer* pRenderer);
+    void Update(float DeltaTime)override;
+    void Render(SDL_Renderer* pRenderer)override;
 };

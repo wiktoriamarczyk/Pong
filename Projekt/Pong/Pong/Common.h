@@ -47,7 +47,10 @@ enum class eStateID
 
 };
 
-// pomocnicza funkcja sprawdzajaca czy klawisz jest nacisniety
+/** pomocnicza funkcja sprawdzajaca czy klawisz jest nacisniety 
+@param Code informacja ktory klawisz zostal nacisniety
+@return true, jesli klawisz w chwili jej wywolania jest wcisniety
+*/
 bool SDL_IsKeyPressed(SDL_Scancode Code);
 
 

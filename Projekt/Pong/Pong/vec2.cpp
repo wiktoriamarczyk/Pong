@@ -9,12 +9,12 @@ float vec2::GetLength()const
     return sqrt(x * x + y * y);
 }
 
-
 vec2 vec2::GetNormalized()const
 {
     vec2 result;
     float length = GetLength();
-
+    
+    // nie mozna dzielic przez 0
     if (length == 0)
         return result;
 
