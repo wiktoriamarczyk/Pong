@@ -16,6 +16,7 @@ class Engine
     Sound m_paddle_sound;
     Sound m_error_sound;
     bool m_IsSoundOn = true;
+    bool m_IsRunning = true;
 
 public:
     Engine();
@@ -36,6 +37,8 @@ public:
     void PlayErrorSound()const;
     void TurnOnOffSound(bool IsSoundOn);
     bool IsSoundOn()const;
+
+    void ExitGame();
 };
 
 

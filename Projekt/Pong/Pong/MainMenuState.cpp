@@ -1,4 +1,5 @@
 #include "MainMenuState.h"
+#include "Engine.h"
 
 
 MainMenuState::MainMenuState(shared_ptr<Font> MyFont) : GameState(eStateID::MAINMENU)
@@ -9,6 +10,11 @@ MainMenuState::MainMenuState(shared_ptr<Font> MyFont) : GameState(eStateID::MAIN
 
 void MainMenuState::Update(float DeltaTime)
 {
+    if (SDL_IsKeyPressed(SDL_SCANCODE_ESCAPE))
+    {
+        Engine::GetSingleton()->ExitGame();
+    }
+
     // po nacisieciu enter dostajemy sie do okna gry
     if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
     {
@@ -36,7 +42,6 @@ void MainMenuState::Render(SDL_Renderer* pRenderer)
     m_Font->DrawText(pRenderer, 5, 180, 250, "->NEW GAME");
     m_Font->DrawText(pRenderer, 5, 180, 300, "->SETTINGS");
     m_Font->DrawText(pRenderer, 5, 180, 350, "->EXIT");
-    m_Font->DrawText(pRenderer, 1, 420, 370, "(CLICK X)");
     m_Font->DrawText(pRenderer, 1, 300, 450, "AUTHOR: WIKTORIA MARCZYK");
 
     SDL_RenderPresent(pRenderer);

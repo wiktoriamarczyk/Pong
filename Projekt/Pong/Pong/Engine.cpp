@@ -119,7 +119,7 @@ void Engine::Loop()
     // 3) renderowanie gry
     // 4) czekanie 1/60 sekundy na nastepmna klatke
 
-    while (true)
+    while (m_IsRunning)
     {
         // oczekiwanie na 'event' -> nas interesuje tylko ewentualne wyjscie z aplikacji
         SDL_Event EVENT = {};
@@ -180,4 +180,10 @@ void Engine::TurnOnOffSound(bool IsSoundOn)
 bool Engine::IsSoundOn() const
 {
     return m_IsSoundOn;
+}
+
+
+void Engine::ExitGame()
+{
+    m_IsRunning = false;
 }
