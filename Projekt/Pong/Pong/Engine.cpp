@@ -6,8 +6,36 @@
 #include "Font.h"
 
 
+Engine* Engine::pSingleton = nullptr;
+
+Engine* Engine::GetSingleton()
+{
+    return pSingleton;
+}
+
+bool Engine::IsFullscreen()const
+{
+    return m_IsFullscreen;
+}
+
+void Engine::SetFullscreen(bool IsFullscreen)
+{
+    m_IsFullscreen = IsFullscreen;
+
+    if (IsFullscreen)
+    {
+        SDL_SetWindowFullscreen(pWindow, SDL_WINDOW_FULLSCREEN);
+    }
+    else
+    {
+        SDL_SetWindowFullscreen(pWindow, 0);
+    }
+}
+
 Engine::Engine()
 {
+    pSingleton = this;
+
     // stworzenie wskaznika na obiekt typu Font i wskazanie pliku tekstowego do odczytu 
     shared_ptr<Font> MyFont = make_shared<Font>();
     MyFont->LoadFont("../Data/FontData.txt");
@@ -19,6 +47,13 @@ Engine::Engine()
 
     ChangeState (eStateID::MAINMENU);
 }
+
+
+Engine::~Engine()
+{
+    pSingleton = nullptr;
+}
+
 
 void Engine::ChangeState (eStateID StateID)
 {
@@ -98,6 +133,7 @@ void Engine::Loop()
         // domyslnie nastepny stan jest UNKNOWN, gdy nie chcemy przechodzic do nowego stanu, zatem jesli jest tam cos innego, tzn. ze bylo zazadanie zmiany stanu
         if (m_pCurrentState->GetNextStateID() != eStateID::UNKNOWN)
         {
+            SDL_Delay(500);
             ChangeState(m_pCurrentState->GetNextStateID());
         }
     }

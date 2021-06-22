@@ -1,4 +1,5 @@
 #include "SettingsState.h"
+#include "Engine.h"
 
 
 SettingsState::SettingsState(shared_ptr<Font> MyFont) : GameState(eStateID::SETTINGS)
@@ -14,11 +15,17 @@ void SettingsState::Update(float DeltaTime)
         m_NextStateID = eStateID::MAINMENU;
     }
     
-        if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
+    if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
+    {
+        if (Engine::GetSingleton()->IsFullscreen())
         {
-            //SDL_SetWindowFullscreen (m_pWindow, SDL_WINDOW_FULLSCREE);
+            Engine::GetSingleton()->SetFullscreen(false);
         }
-    
+        else
+        {
+            Engine::GetSingleton()->SetFullscreen(true);
+        }
+    }
 }
 
 
