@@ -15,7 +15,22 @@ void SettingsState::Update(float DeltaTime)
         m_NextStateID = eStateID::MAINMENU;
     }
     
-    if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
+    if (SDL_IsKeyPressed(SDL_SCANCODE_DOWN))
+    {
+        if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
+        {
+            SDL_Delay(100);
+            if (Engine::GetSingleton()->IsSoundOn())
+            {
+                Engine::GetSingleton()->TurnOnOffSound(false);
+            }
+            else
+            {
+                Engine::GetSingleton()->TurnOnOffSound(true);
+            }
+        }
+    }
+    else if (SDL_IsKeyPressed(SDL_SCANCODE_RETURN))
     {
         if (Engine::GetSingleton()->IsFullscreen())
         {
@@ -36,8 +51,17 @@ void SettingsState::Render(SDL_Renderer* pRenderer)
     SDL_RenderClear(pRenderer);
 
     m_Font->DrawText(pRenderer, 8, 160, 80, "SETTINGS");
-    m_Font->DrawText(pRenderer, 4, 100, 250, "->TURN ON/OFF SOUND");
-    m_Font->DrawText(pRenderer, 4, 100, 300, "->FULLSCREEN");
+    m_Font->DrawText(pRenderer, 4, 100, 250, "->FULLSCREEN");
+
+    if (Engine::GetSingleton()->IsSoundOn())
+    {
+        m_Font->DrawText(pRenderer, 4, 100, 300, "->TURN OFF SOUND");
+    }
+    else
+    {
+        m_Font->DrawText(pRenderer, 4, 100, 300, "->TURN ON SOUND");
+    }
+   
     m_Font->DrawText(pRenderer, 1, 300, 450, "CLICK ESC TO RETURN TO MENU");
 
     SDL_RenderPresent(pRenderer);
