@@ -17,5 +17,6 @@ public:
     void Render(SDL_Renderer* pRenderer)override;
 
     vec2 ReturnPos()const;
+    bool CrossedPaddle(vec2 BallPos);
 };
 

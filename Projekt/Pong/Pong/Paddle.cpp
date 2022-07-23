@@ -21,6 +21,7 @@ vec2 Paddle::ReturnPos()const
 }
 
 
+
 void Paddle::Render(SDL_Renderer* pRenderer)
 {
     /*
@@ -74,3 +75,16 @@ void Paddle::Update (float DeltaTime)
     }
 }
 
+
+bool Paddle::CrossedPaddle(vec2 BallPos)
+{
+    vec2 PaddleTop = m_PaddleCenterPos - m_PaddleSize / 2;
+    vec2 PaddleBottom = m_PaddleCenterPos + m_PaddleSize / 2;
+
+    if (BallPos.y > PaddleTop.y && BallPos.y < PaddleBottom.y)
+    {
+        return true;
+    }
+
+    return false;
+}

@@ -3,6 +3,7 @@
 #include<vector>
 #include<memory>
 #include<fstream>
+#include<ctime>
 #include<SDL_Mixer.h>
 #include<SDL.h>
 
