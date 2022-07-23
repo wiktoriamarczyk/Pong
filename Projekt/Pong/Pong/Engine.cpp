@@ -1,4 +1,8 @@
 #include "Engine.h"
+#include "InGameState.h"
+#include "MainMenuState.h"
+#include "SettingsState.h"
+#include "VictoryState.h"
 
 
 Engine::Engine()
