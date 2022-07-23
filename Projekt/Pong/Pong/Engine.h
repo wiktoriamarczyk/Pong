@@ -1,6 +1,7 @@
 #pragma once
 #include "Common.h"
 #include "GameState.h"
+#include "Sound.h"
 
 
 class Engine
@@ -11,6 +12,10 @@ class Engine
     SDL_Window* pWindow = nullptr;
     GameState* m_pCurrentState = nullptr;  
     vector<unique_ptr<GameState>> m_AllStates;
+    Sound m_wall_sound;
+    Sound m_paddle_sound;
+    Sound m_error_sound;
+    bool m_IsSoundOn = true;
 
 public:
     Engine();
@@ -25,6 +30,12 @@ public:
 
     void SetFullscreen(bool IsFullscreen);
     bool IsFullscreen()const;
+
+    void PlayWallSound()const;
+    void PlayPaddleSound()const;
+    void PlayErrorSound()const;
+    void TurnOnOffSound(bool IsSoundOn);
+    bool IsSoundOn()const;
 };
 
 

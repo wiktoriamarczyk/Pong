@@ -82,6 +82,8 @@ bool Engine::Initialize()
         return false;
     }
 
+    Mix_Volume(-1,16);
+
     // utworzenie okna naszej gry
     pWindow = SDL_CreateWindow("Pong", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     // sprawdzenie, czy okno zostalo utworzone
@@ -98,6 +100,11 @@ bool Engine::Initialize()
         printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
         return false;
     }
+    
+    // zanicjalizowanie obiektow klasy dzwiek
+    m_wall_sound.Load("wall_sound.wav");
+    m_paddle_sound.Load("paddle_sound.wav");
+    m_error_sound.Load("error_sound.wav");
 
     return true;
 }
@@ -133,8 +140,44 @@ void Engine::Loop()
         // domyslnie nastepny stan jest UNKNOWN, gdy nie chcemy przechodzic do nowego stanu, zatem jesli jest tam cos innego, tzn. ze bylo zazadanie zmiany stanu
         if (m_pCurrentState->GetNextStateID() != eStateID::UNKNOWN)
         {
-            SDL_Delay(500);
+            SDL_Delay(100);
             ChangeState(m_pCurrentState->GetNextStateID());
         }
     }
+}
+
+
+void Engine::PlayWallSound()const
+{
+    m_wall_sound.Play();
+}
+
+void Engine::PlayPaddleSound()const
+{
+    m_paddle_sound.Play();
+}
+
+void Engine::PlayErrorSound()const
+{
+    m_error_sound.Play();
+}
+
+
+void Engine::TurnOnOffSound(bool IsSoundOn)
+{
+    if (IsSoundOn)
+    {
+        m_IsSoundOn = true;
+        Mix_Volume(-1, 16);
+    }
+    else
+    {
+        m_IsSoundOn = false;
+        Mix_Volume(-1, 0);
+    }
+}
+
+bool Engine::IsSoundOn() const
+{
+    return m_IsSoundOn;
 }
